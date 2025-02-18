@@ -16,6 +16,12 @@ class ClienteController extends Controller
 
     public function store(Request $request)
     {
+
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'correo' => 'required|email|unique:clientes,correo', // Validamos que el correo no se repita
+        ]);
+
         $cliente = Cliente::create($request->all());
         return response()->json($cliente, 201);
     }
@@ -28,6 +34,12 @@ class ClienteController extends Controller
 
     public function update(Request $request, $id)
     {
+
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'correo' => 'required|email|unique:clientes,correo', // Validamos que el correo no se repita
+        ]);
+        
         $cliente = Cliente::findOrFail($id);
         $cliente->update($request->all());
         return response()->json($cliente);

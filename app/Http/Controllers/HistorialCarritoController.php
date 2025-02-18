@@ -19,10 +19,12 @@ class HistorialCarritoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'producto_id' => 'required|exists:productos,id',
-            'tienda_id' => 'required|exists:tiendas,id',
-            'vendedor_id' => 'required|exists:vendedores,id',
-            'cantidad' => 'required|integer|min:1',
+            'cliente_id' => 'required|exists:clientes,id', // Verifica que el cliente exista
+            'producto_id' => 'required|exists:productos,id', // Verifica que el producto exista
+            'tienda_id' => 'required|exists:tiendas,id', // Verifica que la tienda exista
+            'vendedor_id' => 'required|exists:vendedores,id', // Verifica que el vendedor exista
+            'cantidad' => 'required|integer|min:1', // Asegura que la cantidad sea un número entero y mayor a 0
+            'total' => 'required|numeric|min:0', // Asegura que el total sea un número válido
         ]);
 
         $historial = HistorialCarrito::create($request->all());
@@ -40,10 +42,12 @@ class HistorialCarritoController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'producto_id' => 'required|exists:productos,id',
-            'tienda_id' => 'required|exists:tiendas,id',
-            'vendedor_id' => 'required|exists:vendedores,id',
-            'cantidad' => 'required|integer|min:1',
+            'cliente_id' => 'required|exists:clientes,id', // Verifica que el cliente exista
+            'producto_id' => 'required|exists:productos,id', // Verifica que el producto exista
+            'tienda_id' => 'required|exists:tiendas,id', // Verifica que la tienda exista
+            'vendedor_id' => 'required|exists:vendedores,id', // Verifica que el vendedor exista
+            'cantidad' => 'required|integer|min:1', // Asegura que la cantidad sea un número entero y mayor a 0
+            'total' => 'required|numeric|min:0', // Asegura que el total sea un número válido
         ]);
 
         $historial = HistorialCarrito::findOrFail($id);

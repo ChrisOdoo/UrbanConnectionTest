@@ -15,6 +15,14 @@ class TiendaController extends Controller
 
     public function store(Request $request)
     {
+
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'direccion' => 'required|string|max:255',
+            'vendedor_id' => 'required|exists:vendedores,id', // Asegura que el vendedor exista
+        ]);
+
+
         $tienda = Tienda::create($request->all());
         return response()->json($tienda, 201);
     }
@@ -27,6 +35,14 @@ class TiendaController extends Controller
 
     public function update(Request $request, $id)
     {
+
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'direccion' => 'required|string|max:255',
+            'vendedor_id' => 'required|exists:vendedores,id', // Asegura que el vendedor exista
+        ]);
+
+        
         $tienda = Tienda::findOrFail($id);
         $tienda->update($request->all());
         return response()->json($tienda);

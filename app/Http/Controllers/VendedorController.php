@@ -15,6 +15,13 @@ class VendedorController extends Controller
 
     public function store(Request $request)
     {
+
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'correo' => 'required|email|unique:vendedores,correo', // Validación para asegurar que el email no esté repetido
+        ]);
+
+        
         $vendedor = Vendedor::create($request->all());
         return response()->json($vendedor, 201);
     }
@@ -27,6 +34,13 @@ class VendedorController extends Controller
 
     public function update(Request $request, $id)
     {
+
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'correo' => 'required|email|unique:vendedores,correo', // Validación para asegurar que el email no esté repetido
+        ]);
+
+        
         $vendedor = Vendedor::findOrFail($id);
         $vendedor->update($request->all());
         return response()->json($vendedor);

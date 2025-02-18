@@ -16,6 +16,13 @@ class ProductoController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'precio' => 'required|numeric|min:0',
+            'stock' => 'required|integer|min:0',
+            'tienda_id' => 'required|exists:tiendas,id', // Validamos que el tiend_id exista en la tabla tiendas
+        ]);
+
         $producto = Producto::create($request->all());
         return response()->json($producto, 201);
     }
@@ -28,6 +35,13 @@ class ProductoController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'precio' => 'required|numeric|min:0',
+            'stock' => 'required|integer|min:0',
+            'tienda_id' => 'required|exists:tiendas,id', // Validamos que el tiend_id exista en la tabla tiendas
+        ]);
+
         $producto = Producto::findOrFail($id);
         $producto->update($request->all());
         return response()->json($producto);

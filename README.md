@@ -25,6 +25,9 @@ XAMP pre install, si necesitas mi ENV te lo pase por whats
 3- consumir API en local 127.0.0.1:8000/api/el_recurso
 
 API REFERENCE************************************************************
+
+LOGIN ANG REGISTER 
+
 POST - JSON api/register
 {
     "name": "John Doe",
@@ -38,3 +41,46 @@ POST - JSON api/login
 }
 GET - Bearer <<Token>> api/user
 
+ALL RESOURSES
+GET - Bearer <<Token>> JSON api/productos
+
+POST - Bearer <<Token>> JSON api/productos
+{
+  "nombre": "Producto 33 000",
+  "descripcion": "Descripción del producto 33 000",
+  "precio": 345,
+  "stock": 66,
+  "tienda_id": 7 
+}
+
+PUT - Bearer <<Token>> JSON api/productos
+{
+  "nombre": "Producto 33 000",
+  "descripcion": "Descripción del producto 33 000",
+  "precio": 345,
+  "stock": 66,
+  "tienda_id": 7 
+}
+
+DELETE - Bearer <<Token>> JSON api/productos/9
+
+
+GET - Bearer <<Token>> JSON api/tiendas
+
+POST - Bearer <<Token>> JSON /api/tiendas
+{
+    "nombre": "Tienda Prueba",
+    "direccion": "Av. Test 123",
+    "vendedor_id": 1
+}
+
+PUT - Bearer <<Token>> JSON /api/tiendas/7
+{
+    "nombre": "Tienda Prueba",
+    "direccion": "Av. Test 123",
+    "vendedor_id": 1
+}
+
+DELETE - Bearer <<Token>> JSON api/tiendas/7
+
+Etc, con todos los recursos
