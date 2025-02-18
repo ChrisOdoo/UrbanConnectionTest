@@ -18,3 +18,23 @@ Chris Padilla
 christianpadillasistemas@gmail.com
 linkeid: https://www.linkedin.com/in/christian-mu%C3%B1iz-9a412770/
 
+INSTALACION
+XAMP pre install, si necesitas mi ENV te lo pase por whats
+1- php artisan migrate
+2- php artisan serve
+3- consumir API en local 127.0.0.1:8000/api/el_recurso
+
+API REFERENCE************************************************************
+POST - JSON api/register
+{
+    "name": "John Doe",
+    "email": "john@example.com",
+    "password": "password123"
+}
+POST - JSON api/login
+{
+    "email": "john@example.com",
+    "password": "password123"
+}
+GET - Bearer <<Token>> api/user
+
