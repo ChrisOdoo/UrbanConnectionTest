@@ -84,3 +84,27 @@ PUT - Bearer <<Token>> JSON /api/tiendas/7
 DELETE - Bearer <<Token>> JSON api/tiendas/7
 
 Etc, con todos los recursos
+
+
+***** NUEVA CARACTERISTICA
+Implementacion de Soket y Vue para notificaciones en tiempo real con PUSHER!!
+Ahora al actualizar un producto se genera un evento Broadcasting para notificar y reflejar
+el cambio en tiempo real.
+Además se implementa vue y una vista Stock.balde.php y componente Vue StockUpdate
+para reflejar cambios en tiempo real.
+
+- VUE.js
+- PUSHER
+- Soket
+
+tiene mis llaves api, te comparti el .env con las llaves para probarlo.
+
+SERVICIO API que ejecuta el evento 
+PUT - Bearer <<Token>> JSON api/productos
+{
+  "nombre": "Producto 33 000",
+  "descripcion": "Descripción del producto 33 000",
+  "precio": 345,
+  "stock": 66,
+  "tienda_id": 7 
+}

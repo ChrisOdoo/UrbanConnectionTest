@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use App\Events\StockUpdated;
 
 class ProductoController extends Controller
 {
@@ -44,6 +45,9 @@ class ProductoController extends Controller
 
         $producto = Producto::findOrFail($id);
         $producto->update($request->all());
+
+        event(new StockUpdated($producto->id, $request->stock));
+
         return response()->json($producto);
     }
 
