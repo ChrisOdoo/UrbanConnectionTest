@@ -4,10 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ClienteController extends Controller
 {
-    
+
+    private function authorizeDelete()
+    {
+        $user = Auth::user();
+        if (!$user) {
+            return response()->json(['message' => 'No autenticado'], 401);
+        }
+
+        $roles = $user->roles->pluck('name');
+
+        if ($roles->contains('cliente')) {
+            return response()->json(['message' => 'No autorizado'], 403);
+        }
+        return null;
+    }
 
     public function index()
     {
@@ -16,10 +31,9 @@ class ClienteController extends Controller
 
     public function store(Request $request)
     {
-
         $request->validate([
             'nombre' => 'required|string|max:255',
-            'correo' => 'required|email|unique:clientes,correo', // Validamos que el correo no se repita
+            'correo' => 'required|email|unique:clientes,correo',
         ]);
 
         $cliente = Cliente::create($request->all());
@@ -34,12 +48,11 @@ class ClienteController extends Controller
 
     public function update(Request $request, $id)
     {
-
         $request->validate([
             'nombre' => 'required|string|max:255',
-            'correo' => 'required|email|unique:clientes,correo', // Validamos que el correo no se repita
+            'correo' => 'required|email|unique:clientes,correo',
         ]);
-        
+
         $cliente = Cliente::findOrFail($id);
         $cliente->update($request->all());
         return response()->json($cliente);
@@ -47,6 +60,11 @@ class ClienteController extends Controller
 
     public function destroy($id)
     {
+        // Verifica la autorización antes de eliminar
+        if ($response = $this->authorizeDelete()) {
+            return $response;
+        }
+
         $cliente = Cliente::findOrFail($id);
         $cliente->delete();
         return response()->json(null, 204);

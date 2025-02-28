@@ -32,7 +32,8 @@ POST - JSON api/register
 {
     "name": "John Doe",
     "email": "john@example.com",
-    "password": "password123"
+    "password": "password123",
+    "role": "cliente" / "vendedor"
 }
 POST - JSON api/login
 {
@@ -108,3 +109,42 @@ PUT - Bearer <<Token>> JSON api/productos
   "stock": 66,
   "tienda_id": 7 
 }
+
+
+***** ROLES Nueva Caracyeristica
+Se agrega a la estructura los roles para vendedor y cliente y se valida para vincular
+a cada usuario con su rol, el rol se define unicamente en el registro y de acuerdo al rol
+son los servicios API disponibles: 
+
+Ejemplo --> cliente puede tener y acceder a historial de carrito
+pero no puede crear productos.
+
+Nueva estructura JSON para REGISTER
+POST - JSON api/register
+{
+    "name": "John Doe",
+    "email": "john@example.com",
+    "password": "password123",
+    "role": "cliente" / "vendedor"
+}
+
+NOTAS **** 
+Servicios de CRUD Vendedores no puede ser accedido por clientes
+regresando un 403 Unauthorized
+
+Servicios de CRUD Clientes, cliente no puede eliminar
+regresando un 403 Unauthorized
+
+Servicios de Carrito e historial y tiendas y productos
+es de interez para ambos por ello
+ambos pueden consumir los servicios
+regresando un 200 success
+
+PRODUCTOS Cliente
+- clientes no puede crear o editar ni boorar
+- cliente puede obtrener los productos
+
+PRODUCTOS Vendedor
+- puede crear o editar y boorar
+- puede obtrener los productos
+
